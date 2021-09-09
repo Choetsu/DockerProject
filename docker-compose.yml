@@ -3,7 +3,7 @@ version: '3'
 services: 
   php_apache:
     build:
-      context: ./php
+      context: ./app/php
       dockerfile: Dockerfile
     container_name: php8_0_2_apache
     depends_on: 
@@ -11,7 +11,7 @@ services:
     volumes: 
       - ./php:/var/www/html
     ports: 
-      - 8000:80
+      - "8000:80"
   mysql:
     container_name: mysql_
     image: mysql
@@ -23,4 +23,17 @@ services:
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_DATABASE: docker_database
     ports: 
-      - 3306:3306 
+      - "3306:3306" 
+  phpmyadmin:
+    depends_on: 
+      - mysql 
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    environment: 
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: 123456
+    ports: 
+      - "8080:80"
+    volumes: 
+      - /sessions
