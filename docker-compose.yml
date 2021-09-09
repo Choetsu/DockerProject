@@ -1,39 +1,26 @@
-version: "3"
+version: '3'
 
 services: 
-  web:
-    #build: docker/apache
-    image: web:latest
-    container_name: ${PROJECT_NAME}_web
-    volumes: 
-      - .:${PROJECT_PATH}
-      #- ./docker/apache/sites-enabled:/etc/apache2/sites-enabled
-      - ./docker/php/custom-php.ini:/usr/local/etc/php/conf.d/custom-php.ini
+  php_apache:
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    container_name: php8_0_2_apache
     depends_on: 
-      - db
-    ports: 
-      - "8082:80"
-  db:
-    image: mysql:5.7
-    container_name: ${PROJECT_NAME}_mysql
+      - mysql
     volumes: 
-      - ./docker/db/custom.cnf:/etc/mysql/conf.d/custon.cnf 
-      - db_data:/var/lib/mysql
-    environment: 
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
-      MYSQL_DATABASE: ${DB_NAME}
+      - ./php:/var/www/html
     ports: 
-      - 3306
-  phpmyadmin:
-    image: phpmyadmin:latest
-    container_name: ${PROJECT_NAME}_pma
-    depends_on: 
-      - db
-    ports: 
-      - 8083:80
+      - 8000:80
+  mysql:
+    container_name: mysql_
+    image: mysql
+    command: "--innodb_use_native_aio=0"
+    volumes:   
+      - "./db_data:/var/lib/mysql"
+      - "./mysqlconf:/etc/mysql/conf.d"
     environment: 
-      - PMA_HOST=db
-      - PMA_USER=root
-      - PMA_PASSWORD=root
-volumes: 
-  db_data:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: docker_database
+    ports: 
+      - 3306:3306 
