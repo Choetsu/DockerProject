@@ -11,13 +11,13 @@
 
 
   <?php
-  $host = "localhost"; // ou 127.0.0.1
+  $host = "mysql"; 
   $user = "root";  // "admin" pour Linux
   $bdd = "docker_database"; // le nom de votre base de données
-  $passwd = "123456";  // "admin" pour Linux
+  $passwd = "123456";  
   $co = mysqli_connect($host, $user, $passwd, $bdd) or die("erreur de connexion");
 
-  $sql = mysqli_query($co, "SELECT prenom,nom,email FROM user");
+  $sql = mysqli_query($co, "SELECT prenom,nom,email FROM utilisateur");
   ?>
   <table class="table table-dark">
     <tr>

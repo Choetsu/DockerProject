@@ -9,16 +9,14 @@ services:
     depends_on: 
       - mysql
     volumes: 
-      - ./php:/var/www/html
+      - ./app/php:/var/www/html
     ports: 
       - "8000:80"
   mysql:
     container_name: mysql_
     image: mysql
-    command: "--innodb_use_native_aio=0"
     volumes:   
-      - "./db_data:/var/lib/mysql"
-      - "./mysqlconf:/etc/mysql/conf.d"
+      - ./dump:/docker-entrypoint-initdb.d
     environment: 
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_DATABASE: docker_database
@@ -35,5 +33,3 @@ services:
       PMA_PASSWORD: 123456
     ports: 
       - "8080:80"
-    volumes: 
-      - /sessions
