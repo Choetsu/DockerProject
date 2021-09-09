@@ -1,6 +1,6 @@
 body {
     align-items: center;
-    background-color: #000;
+    background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
     display: flex;
     justify-content: center;
     height: 100vh;
@@ -10,7 +10,7 @@ body {
     background-color: #15172b;
     border-radius: 20px;
     box-sizing: border-box;
-    height: 550px;
+    height: 640px;
     padding: 20px;
     width: 320px;
 }
@@ -63,7 +63,7 @@ body {
 }
 
 .cut-short {
-    width: 50px;
+    width: 100px;
 }
 
 .input:focus~.cut,
@@ -85,7 +85,7 @@ body {
 
 .input:focus~.placeholder,
 .input:not(:placeholder-shown)~.placeholder {
-    transform: translateY(-30px) translateX(10px) scale(0.75);
+    transform: translateY(-30px) translateX(5px) scale(0.85);
 }
 
 .input:not(:placeholder-shown)~.placeholder {
